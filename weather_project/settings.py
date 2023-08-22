@@ -87,6 +87,9 @@ USE_TZ = True
 
 #region STATIC FILES AND MEDIA
 STATIC_URL = 'static/'
+
+STATICFILES_DIRS = [BASE_DIR, 'static']
+
 #endregion STATIC FILES AND MEDIA
 
 

@@ -15,9 +15,31 @@ def index(request):
     if request.method == 'POST':
         city1 = request.POST['city1']
         city2 = request.get('city2', None)
+
+        weather_data1, daily_forecasts1  = fetch_weather_and_forecast(city1, API_KEY, cw_url, fc_url)
+
+        if city2:
+            weather_data2, daily_forecasts2  = fetch_weather_and_forecast(city2, API_KEY, cw_url, fc_url)
+        else:
+            weather_data2, daily_forecasts2 = None, None
+        
+        context = {
+        'weather_data1': weather_data1,
+        'daily_forecasts1': daily_forecasts1,
+        'weather_data2': weather_data2,
+        'daily_forecasts2': daily_forecasts2,
+        }
+        return render(request, 'w_app/index.html', context)
+
+
     else:
         return render(request, 'w_app/index.html')
     
+    
+
+
+
+
 def fetch_weather_and_forecast(city, api_key, cw_url, fc_url):
     response = requests.get(cw_url.format(city, api_key)).json()
     lat, lon = response['coord']['lat'], response['coord']['lon']
@@ -41,5 +63,7 @@ def fetch_weather_and_forecast(city, api_key, cw_url, fc_url):
             'icon': daily_data['weather'][0]['icon']
 
         })
+
+    return weather_data, daily_forecasts
 
 

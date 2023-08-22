@@ -29,11 +29,11 @@ def index(request):
         'weather_data2': weather_data2,
         'daily_forecasts2': daily_forecasts2,
         }
-        return render(request, 'w_app/index.html', context)
+        return render(request, 'app/index.html', context)
 
 
     else:
-        return render(request, 'w_app/index.html')
+        return render(request, 'app/index.html')
     
     
 
